@@ -1,31 +1,59 @@
-import * as React from "react"
-import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
+import React from "react"
 
-import Layout from "../components/layout"
-import Seo from "../components/seo"
+import { graphql } from 'gatsby'
 
-const IndexPage = () => (
-  <Layout>
-    <Seo title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <StaticImage
-      src="../images/gatsby-astronaut.png"
-      width={300}
-      quality={95}
-      formats={["auto", "webp", "avif"]}
-      alt="A Gatsby astronaut"
-      style={{ marginBottom: `1.45rem` }}
-    />
-    <p>
-      <Link to="/page-2/">Go to page 2</Link> <br />
-      <Link to="/using-typescript/">Go to "Using TypeScript"</Link> <br />
-      <Link to="/using-ssr">Go to "Using SSR"</Link> <br />
-      <Link to="/using-dsg">Go to "Using DSG"</Link>
-    </p>
-  </Layout>
-)
+//import ReactDOM from "react-dom";
+import FlexLayout from "flexlayout-react";
 
-export default IndexPage
+
+const Index = (props) => {
+    var json = {
+        global: {},
+        borders: [],
+        layout: {
+            "type": "row",
+            "weight": 100,
+            "children": [
+                {
+                    "type": "tabset",
+                    "weight": 50,
+                    "selected": 0,
+                    "children": [
+                        {
+                            "type": "tab",
+                            "name": "FX",
+                            "component": "grid",
+                        }
+                    ]
+                },
+                {
+                    "type": "tabset",
+                    "weight": 50,
+                    "selected": 0,
+                    "children": [
+                        {
+                            "type": "tab",
+                            "name": "FI",
+                            "component": "grid",
+                        }
+                    ]
+                }
+            ]
+        }
+    };
+
+    this.state = { model: FlexLayout.Model.fromJson(json) };
+
+    this.factory = function (node) {
+        var component = node.getComponent();
+        if (component === "button") {
+            return <button>{node.getName()}</button>;
+        }
+    };
+
+    return (
+        <FlexLayout.Layout model={this.state.model} factory={this.factory.bind(this)} />
+    )
+}
+
+export default Index
